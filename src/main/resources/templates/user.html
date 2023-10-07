@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+
+        /*Корректировка размеров шапки*/
+
+        .bs .row > .col, .bs .row > [class^="col"]{
+            padding-top: .75rem;
+            padding-bottom: .30rem;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<header>
+    <div class="bs">
+        <div class="container-fluid bg-dark text-white sticky-top">
+            <div class="row">
+                <div class="col col-lg-11">
+                    <h4>
+                        <span th:text="${userDetails.email}"></span>
+                        <small>
+                            <span> with roles: </span>
+                            <span th:each= "role :${userDetails.roles}"
+                                  th:text="${role.toString()}+'  '"></span>
+                        </small>
+                    </h4>
+                </div>
+                <div class="col col-lg-1">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button type="submit" class="btn btn-dark w-100" style="font-size: 20px;">
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--КОНЕЦ ШАПКИ-->
+
+<!--ОСНОВНАЯ ИНФОРМАЦИЯ-->
+
+<div class="container-fluid bg-white">
+
+    <div class="row">
+        <div class="col col-lg-2 container-full-height">
+            <nav class="nav flex-column nav-pills nav-fill">
+                <a th:if="${userDetails.getRoles().size() >= 2}"  class="nav-link" href="/admin">Admin</a>
+                <a  class="nav-link active" href="/user">User</a>
+            </nav>
+        </div>
+
+
+        <div class="col col-lg-10 bg-light">
+            <h1>User information page</h1>
+
+            <div class="tab-content">
+                <div>
+                    <table class="table table-striped bg-white">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Surname</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Roles</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${userDetails}">
+                            <td th:utext="${user.getId}">...</td>
+                            <td th:utext="${user.getName}">...</td>
+                            <td th:utext="${user.getSurname}">...</td>
+                            <td th:utext="${user.getAge}">...</td>
+                            <td th:utext="${user.getEmail}">...</td>
+                            <td th:utext="${user.getRoles}">...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
