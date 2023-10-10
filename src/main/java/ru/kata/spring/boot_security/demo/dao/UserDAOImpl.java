@@ -52,9 +52,5 @@ public class UserDAOImpl implements UserDAO{
                 .getSingleResult());
     }
 
-//    @Override
-//    public List<Role> showUserRoles(User user){
-//
-//    }
 
 }

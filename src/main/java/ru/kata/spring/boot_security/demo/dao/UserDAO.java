@@ -18,7 +18,6 @@ public interface UserDAO {
 
     Optional<User> findUserByEmail(String email);
 
-//    List<Role> showUserRoles(User user);
 
 }
 

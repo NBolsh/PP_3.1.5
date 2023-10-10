@@ -18,6 +18,8 @@ public class AdminController {
     private UserService userService;
     private RoleService roleService;
 
+    private String redirect = "redirect:/admin";
+
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService){
@@ -37,32 +39,30 @@ public class AdminController {
 
 
     @PostMapping("/saveUser")
-    public String addUser(@ModelAttribute("userNew") User user,
-                          BindingResult bindingResult){
-        if (bindingResult.hasErrors()) { return "/list"; }
+    public String addUser(@ModelAttribute("userNew") User user) {
         userService.addUser(user);
-        return "redirect:/admin";
+        return redirect;
     }
 
     @GetMapping("/{id}")
     public String getUser(Model model, @PathVariable("id") Long id){
         model.addAttribute("user", userService.findUserById(id));
         model.addAttribute("rolesDB", roleService.showRoles());
-        return "redirect:/admin";
+        return redirect;
     }
 
     @PatchMapping("/{id}")
     public String editUser(@PathVariable("id") Long id,
                            @ModelAttribute("user") User user) {
         userService.addUser(user);
-        return "redirect:/admin";
+        return redirect;
     }
 
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
+        return redirect;
     }
 
 }

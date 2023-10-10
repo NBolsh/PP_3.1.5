@@ -18,6 +18,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private UserService userService;
 
+    private String index = "/index";
+
     @Autowired
     public WebSecurityConfig(SuccessUserHandler successUserHandler, UserServiceImpl userService) {
         this.successUserHandler = successUserHandler;
@@ -28,19 +30,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
+                .antMatchers("/", index).permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/index")
+                .loginPage(index)
                 .successHandler(successUserHandler)
                 .and()
                 .formLogin().loginProcessingUrl("/login")
                 .and()
                 .logout().logoutUrl("/logout")
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl(index)
                 .permitAll();
     }
 
