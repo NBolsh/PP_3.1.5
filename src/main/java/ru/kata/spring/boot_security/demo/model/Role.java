@@ -23,14 +23,6 @@ public class Role implements GrantedAuthority {
     public Role(){
     }
 
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
-    }
-
     public Role(String name){
         this.name = name;
     }

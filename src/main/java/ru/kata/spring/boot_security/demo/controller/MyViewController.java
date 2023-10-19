@@ -4,28 +4,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
+public class MyViewController {
+
     private UserService userService;
-    private RoleService roleService;
+
 
     @Autowired
-    public UserController(UserService userService, RoleService roleService) {
+    public MyViewController(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
-    @GetMapping
-    public String showUserInfo(Model model, Principal principal){
-        model.addAttribute("roleDetails", roleService.showRoles());
+    @GetMapping("/adminPage")
+    public String getAdminPage(Model model, Principal principal){
+        User user =  userService.findUserByEmail(principal.getName()).get();
+        model.addAttribute("userP", user);
+        model.addAttribute("rolesDB", user.getRoles());
+        return "/list";
+    }
+
+    @GetMapping("/userPage")
+    public String getUserPage(Model model, Principal principal){
         model.addAttribute("userDetails", userService.findUserByEmail(principal.getName()).get());
         return "/user";
     }
+
 }

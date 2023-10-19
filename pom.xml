@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>PP_3_1_4_Spring_security_bootstrap_version3</groupId>
-	<artifactId>PP_3_1_4</artifactId>
+	<artifactId>PP_3_1_5</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PP_3_1_4_Spring_security_bootstrap_version3</name>
 	<description>PP_3_1_4_Spring_security_bootstrap_version3</description>
